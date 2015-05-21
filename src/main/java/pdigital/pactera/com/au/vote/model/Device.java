@@ -1,9 +1,11 @@
 package pdigital.pactera.com.au.vote.model;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +18,10 @@ import java.util.List;
 @Table(name = "device")
 public class Device {
 
-	@OneToMany(mappedBy = "device")
+	@OneToOne
+	private User user;
+
+	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = "device")
 	private List<EmotionVote> emotionVotes = new ArrayList<>();
 
 	@Id
@@ -39,8 +44,25 @@ public class Device {
 		this.deviceId = deviceId;
 	}
 
+	public Device(User user) {
+		this.user = user;
+	}
+
 	public Device(String deviceId) {
 		this.deviceId = deviceId;
+	}
+
+	public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}
+
+	public Device(String deviceId, User user) {
+		this.deviceId = deviceId;
+		this.user = user;
 	}
 
 	public Device() {

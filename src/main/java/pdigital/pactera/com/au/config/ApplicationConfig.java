@@ -16,7 +16,7 @@ class ApplicationConfig {
 	
 	@Bean
 	public static PropertyPlaceholderConfigurer propertyPlaceholderConfigurer() {
-		String activeProfile = System.getProperty("spring.profiles.active", "prod");
+		String activeProfile = System.getProperty("spring.profiles.active", "local");
 		String propertiesFilename = "persistence-" + activeProfile + ".properties";
 		PropertyPlaceholderConfigurer ppc = new PropertyPlaceholderConfigurer();
 		ppc.setLocation(new ClassPathResource("/"+propertiesFilename));

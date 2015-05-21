@@ -9,6 +9,7 @@ import pdigital.pactera.com.au.vote.controller.EmotionVoteItem;
 import pdigital.pactera.com.au.vote.model.DeviceRepository;
 import pdigital.pactera.com.au.vote.model.EmotionVote;
 import pdigital.pactera.com.au.vote.model.EmotionVoteRepository;
+import pdigital.pactera.com.au.vote.model.UserRepository;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -19,6 +20,9 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 
 public class EmotionVoteServiceImplTest {
+
+	@Mock
+	UserRepository userRepository;
 
 	@Mock
 	DeviceRepository deviceRepository;
@@ -34,7 +38,7 @@ public class EmotionVoteServiceImplTest {
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		emotionVoteItems = initializeEmotionVoteItems();
-		emotionVoteService = new EmotionVoteServiceImpl(deviceRepository, emotionVoteRepository);
+		emotionVoteService = new EmotionVoteServiceImpl(userRepository, deviceRepository, emotionVoteRepository);
 	}
 
 	/**

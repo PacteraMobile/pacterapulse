@@ -10,6 +10,8 @@ import pdigital.pactera.com.au.vote.model.Device;
 import pdigital.pactera.com.au.vote.model.DeviceRepository;
 import pdigital.pactera.com.au.vote.model.EmotionVote;
 import pdigital.pactera.com.au.vote.model.EmotionVoteRepository;
+import pdigital.pactera.com.au.vote.model.User;
+import pdigital.pactera.com.au.vote.model.UserRepository;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -24,11 +26,13 @@ public class EmotionVoteServiceImpl implements EmotionVoteService {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
+	private UserRepository userRepository;
 	private DeviceRepository deviceRepository;
 	private EmotionVoteRepository emotionVoteRepository;
 
 	@Autowired
-	public EmotionVoteServiceImpl(DeviceRepository deviceRepository, EmotionVoteRepository emotionVoteRepository) {
+	public EmotionVoteServiceImpl(UserRepository userRepository, DeviceRepository deviceRepository, EmotionVoteRepository emotionVoteRepository) {
+		this.userRepository = userRepository;
 		this.deviceRepository = deviceRepository;
 		this.emotionVoteRepository = emotionVoteRepository;
 	}
@@ -78,4 +82,30 @@ public class EmotionVoteServiceImpl implements EmotionVoteService {
 		logger.info("the result is "+emotionVote);
 		return emotionVote;
 	}
+
+	/**
+	 * Save emotion to the persistence layer
+	 * @param user the user details
+	 * @param deviceId the mobile device id
+	 * @param emotionId the emotion id
+	 * @return emotionVote the saved emotion vote
+	 */
+	@Override public EmotionVote saveEmotion(User user, String deviceId, String emotionId) {
+		logger.info("deviceId is "+deviceId +"; emotionId is "+emotionId+ "user "+user);
+		//validate emotion id: Integer and value range is between 0 and 2
+		if(StringUtils.isEmpty(emotionId) || Integer.valueOf(emotionId) > 2 || Integer.valueOf(emotionId) < 0){
+			throw new RuntimeException("invalid emotionId");
+		}
+
+		user = userRepository.save(user);
+		Device device = deviceRepository.save(new Device(deviceId,user));
+
+		EmotionVote emotionVote = new EmotionVote(device, emotionId);
+		emotionVote = emotionVoteRepository.save(emotionVote);
+
+		//return emotionVote;
+		logger.info("the result is "+emotionVote);
+		return emotionVote;
+	}
+
 }
