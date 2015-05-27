@@ -6,6 +6,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pdigital.pactera.com.au.vote.controller.EmotionVoteItem;
+import pdigital.pactera.com.au.vote.controller.VoteCommentList;
 import pdigital.pactera.com.au.vote.model.Device;
 import pdigital.pactera.com.au.vote.model.DeviceRepository;
 import pdigital.pactera.com.au.vote.model.EmotionVote;
@@ -106,6 +107,16 @@ public class EmotionVoteServiceImpl implements EmotionVoteService {
 		//return emotionVote;
 		logger.info("the result is "+emotionVote);
 		return emotionVote;
+	}
+
+	@Override public EmotionVote saveEmotionComments(VoteCommentList voteCommentList) {
+		//get voteId
+		EmotionVote emotionVote = emotionVoteRepository.findById(voteCommentList.getVoteId() );
+		if(emotionVote == null){
+			logger.info("the vote id does not exist. vote id is "+ voteCommentList.getVoteId());
+		}
+		emotionVote.setVoteComments(voteCommentList.getVoteCommentList());
+		return emotionVoteRepository.save(emotionVote);
 	}
 
 }

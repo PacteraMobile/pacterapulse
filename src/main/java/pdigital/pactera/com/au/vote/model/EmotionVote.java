@@ -85,9 +85,20 @@ public class EmotionVote {
 		return dateSubmitted;
 	}
 
+	public List<VoteComment> getVoteComments() {
+		return voteComments;
+	}
+
+	public void setVoteComments(List<VoteComment> voteComments) {
+		this.voteComments = voteComments;
+	}
+
 	public void setDateSubmitted(Date dateSubmitted) {
 		this.dateSubmitted = dateSubmitted;
 	}
+
+
+
 
 	@Override public String toString() {
 		return "EmotionVote{" +

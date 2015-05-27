@@ -7,6 +7,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -44,6 +45,15 @@ public class EmotionVoteController {
 		EmotionVote emotionVote = emotionVoteService.saveEmotion(user, deviceId, emotionId);
 		//construct response
 		EmotionVoteSubmitResult emotionVoteSubmitResult = new EmotionVoteSubmitResult("OK", deviceId, emotionVote);
+		return emotionVoteSubmitResult;
+	}
+
+	@RequestMapping(value = "emotions/comments", method = { RequestMethod.POST })
+	public @ResponseBody EmotionVoteSubmitResult save(@RequestBody VoteCommentList voteCommentList) {
+		//construct user
+		EmotionVote emotionVote = emotionVoteService.saveEmotionComments(voteCommentList);
+		//construct response
+		EmotionVoteSubmitResult emotionVoteSubmitResult = new EmotionVoteSubmitResult("OK", "", emotionVote);
 		return emotionVoteSubmitResult;
 	}
 

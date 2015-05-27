@@ -76,4 +76,8 @@ public class EmotionVoteRepository {
 		}
 		return emotionVotes;
 	}
+
+	public EmotionVote findById(Integer voteId) {
+		return entityManager.find(EmotionVote.class, voteId);
+	}
 }
