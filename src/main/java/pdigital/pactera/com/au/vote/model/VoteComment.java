@@ -31,8 +31,7 @@ public class VoteComment {
 	private String comment;
 
 
-	@ManyToOne
-	private CommentCategory commentCategory;
+	private String commentCategory;
 
 
 	public VoteComment() {
@@ -64,14 +63,13 @@ public class VoteComment {
 		this.comment = comment;
 	}
 
-	public CommentCategory getCommentCategory() {
+	public String getCommentCategory() {
 		return commentCategory;
 	}
 
-	public void setCommentCategory(CommentCategory commentCategory) {
+	public void setCommentCategory(String commentCategory) {
 		this.commentCategory = commentCategory;
 	}
-
 }
 
 
