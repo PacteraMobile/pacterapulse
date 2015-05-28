@@ -13,7 +13,6 @@ import javax.persistence.Table;
 @Table(name = "comment_category")
 public class CommentCategory {
 
-
 	//@OneToMany(cascade = CascadeType.PERSIST, mappedBy = "commentCategory")
 	//@JsonIgnore
 	//private List<VoteComment> voteComments = new ArrayList<>();
