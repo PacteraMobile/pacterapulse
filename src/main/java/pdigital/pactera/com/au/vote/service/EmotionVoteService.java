@@ -1,9 +1,9 @@
 package pdigital.pactera.com.au.vote.service;
 
 import pdigital.pactera.com.au.vote.controller.EmotionVoteItem;
-import pdigital.pactera.com.au.vote.controller.VoteCommentList;
 import pdigital.pactera.com.au.vote.model.EmotionVote;
 import pdigital.pactera.com.au.vote.model.User;
+import pdigital.pactera.com.au.vote.model.VoteComment;
 
 import java.util.List;
 
@@ -15,5 +15,5 @@ public interface EmotionVoteService {
 	EmotionVote saveEmotion(String deviceId, String emotionId);
 	EmotionVote saveEmotion(User user, String deviceId, String emotionId);
 
-	EmotionVote saveEmotionComments(VoteCommentList voteCommentList);
+	EmotionVote saveEmotionComments(Integer voteId, List<VoteComment> voteCommentList);
 }

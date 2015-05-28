@@ -1,6 +1,6 @@
 package pdigital.pactera.com.au.vote.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -18,6 +18,7 @@ import javax.persistence.Table;
 @Table(name = "vote_comment")
 public class VoteComment {
 
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer commentId;
@@ -26,16 +27,17 @@ public class VoteComment {
 	@ManyToOne
 	private EmotionVote emotionVote;
 
-	@Column(name = "comment")
+    @Column(name = "comment")
 	private String comment;
 
-	@JsonIgnore
+
 	@ManyToOne
 	private CommentCategory commentCategory;
 
 
 	public VoteComment() {
 	}
+
 
 	public Integer getCommentId() {
 		return commentId;
@@ -53,6 +55,7 @@ public class VoteComment {
 		this.emotionVote = emotionVote;
 	}
 
+
 	public String getComment() {
 		return comment;
 	}
@@ -68,6 +71,7 @@ public class VoteComment {
 	public void setCommentCategory(CommentCategory commentCategory) {
 		this.commentCategory = commentCategory;
 	}
+
 }
 
 

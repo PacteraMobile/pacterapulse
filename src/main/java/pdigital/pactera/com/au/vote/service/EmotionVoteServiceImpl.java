@@ -6,13 +6,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pdigital.pactera.com.au.vote.controller.EmotionVoteItem;
-import pdigital.pactera.com.au.vote.controller.VoteCommentList;
+import pdigital.pactera.com.au.vote.model.CommentCategoryRepository;
 import pdigital.pactera.com.au.vote.model.Device;
 import pdigital.pactera.com.au.vote.model.DeviceRepository;
 import pdigital.pactera.com.au.vote.model.EmotionVote;
 import pdigital.pactera.com.au.vote.model.EmotionVoteRepository;
 import pdigital.pactera.com.au.vote.model.User;
 import pdigital.pactera.com.au.vote.model.UserRepository;
+import pdigital.pactera.com.au.vote.model.VoteComment;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -30,12 +31,14 @@ public class EmotionVoteServiceImpl implements EmotionVoteService {
 	private UserRepository userRepository;
 	private DeviceRepository deviceRepository;
 	private EmotionVoteRepository emotionVoteRepository;
+	private CommentCategoryRepository commentCategoryRepository;
 
 	@Autowired
-	public EmotionVoteServiceImpl(UserRepository userRepository, DeviceRepository deviceRepository, EmotionVoteRepository emotionVoteRepository) {
+	public EmotionVoteServiceImpl(UserRepository userRepository, DeviceRepository deviceRepository, EmotionVoteRepository emotionVoteRepository,CommentCategoryRepository commentCategoryRepository) {
 		this.userRepository = userRepository;
 		this.deviceRepository = deviceRepository;
 		this.emotionVoteRepository = emotionVoteRepository;
+		this.commentCategoryRepository = commentCategoryRepository;
 	}
 
 	/**
@@ -109,13 +112,13 @@ public class EmotionVoteServiceImpl implements EmotionVoteService {
 		return emotionVote;
 	}
 
-	@Override public EmotionVote saveEmotionComments(VoteCommentList voteCommentList) {
+	@Override public EmotionVote saveEmotionComments(Integer voteId, List<VoteComment> voteComments) {
 		//get voteId
-		EmotionVote emotionVote = emotionVoteRepository.findById(voteCommentList.getVoteId() );
+		EmotionVote emotionVote = emotionVoteRepository.findById(voteId );
 		if(emotionVote == null){
-			logger.info("the vote id does not exist. vote id is "+ voteCommentList.getVoteId());
+			logger.info("the vote id does not exist. vote id is "+ voteId);
 		}
-		emotionVote.setVoteComments(voteCommentList.getVoteCommentList());
+		emotionVote.setVoteComments(voteComments);
 		return emotionVoteRepository.save(emotionVote);
 	}
 

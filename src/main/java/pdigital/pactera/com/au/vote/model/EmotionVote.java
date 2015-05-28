@@ -39,7 +39,7 @@ public class EmotionVote {
 	private String emotion;
 
 
-	@OneToMany(cascade = CascadeType.PERSIST, mappedBy = "emotionVote")
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "emotionVote")
 	private List<VoteComment> voteComments = new ArrayList<>();
 
 

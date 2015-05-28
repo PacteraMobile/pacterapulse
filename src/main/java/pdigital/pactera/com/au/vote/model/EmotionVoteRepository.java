@@ -24,8 +24,7 @@ public class EmotionVoteRepository {
 	private EntityManager entityManager;
 
 	public EmotionVote save(EmotionVote emotionVote) {
-		entityManager.persist(emotionVote);
-		return emotionVote;
+		return entityManager.merge(emotionVote);
 	}
 
 	/**

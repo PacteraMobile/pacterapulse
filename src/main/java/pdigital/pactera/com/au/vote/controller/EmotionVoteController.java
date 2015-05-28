@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import pdigital.pactera.com.au.vote.model.EmotionVote;
 import pdigital.pactera.com.au.vote.model.User;
+import pdigital.pactera.com.au.vote.model.VoteComment;
 import pdigital.pactera.com.au.vote.service.EmotionVoteService;
 
 import java.util.List;
@@ -48,10 +49,10 @@ public class EmotionVoteController {
 		return emotionVoteSubmitResult;
 	}
 
-	@RequestMapping(value = "emotions/comments", method = { RequestMethod.POST })
-	public @ResponseBody EmotionVoteSubmitResult save(@RequestBody VoteCommentList voteCommentList) {
+	@RequestMapping(value = "emotions/{voteId}", method = { RequestMethod.PUT }, consumes = "application/json")
+	public @ResponseBody EmotionVoteSubmitResult save(@PathVariable Integer voteId, @RequestBody List<VoteComment> voteComments) {
 		//construct user
-		EmotionVote emotionVote = emotionVoteService.saveEmotionComments(voteCommentList);
+		EmotionVote emotionVote = emotionVoteService.saveEmotionComments(voteId, voteComments);
 		//construct response
 		EmotionVoteSubmitResult emotionVoteSubmitResult = new EmotionVoteSubmitResult("OK", "", emotionVote);
 		return emotionVoteSubmitResult;

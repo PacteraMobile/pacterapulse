@@ -6,6 +6,7 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import pdigital.pactera.com.au.vote.controller.EmotionVoteItem;
+import pdigital.pactera.com.au.vote.model.CommentCategoryRepository;
 import pdigital.pactera.com.au.vote.model.DeviceRepository;
 import pdigital.pactera.com.au.vote.model.EmotionVote;
 import pdigital.pactera.com.au.vote.model.EmotionVoteRepository;
@@ -30,6 +31,9 @@ public class EmotionVoteServiceImplTest {
 	@Mock
 	EmotionVoteRepository emotionVoteRepository;
 
+	@Mock
+	CommentCategoryRepository commentCategoryRepository;
+
 	private EmotionVoteService emotionVoteService;
 
 	private ArrayList<EmotionVoteItem> emotionVoteItems;
@@ -38,7 +42,7 @@ public class EmotionVoteServiceImplTest {
 	public void setUp() {
 		MockitoAnnotations.initMocks(this);
 		emotionVoteItems = initializeEmotionVoteItems();
-		emotionVoteService = new EmotionVoteServiceImpl(userRepository, deviceRepository, emotionVoteRepository);
+		emotionVoteService = new EmotionVoteServiceImpl(userRepository, deviceRepository, emotionVoteRepository, commentCategoryRepository);
 	}
 
 	/**
